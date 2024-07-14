@@ -59,19 +59,20 @@ func (repo *UserRepo) CreateUser(user *pb.RegisterRequest) (*pb.RegisterResponse
 	return &userResp, nil
 }
 
-func (repo *UserRepo) GetUser(user *pb.LoginRequest) (*models.UserLogin, error) {
+func (repo *UserRepo) GetUserByEmail(email string) (*models.UserLogin, error) {
 	var userResp models.UserLogin
 
 	err := repo.DB.QueryRow(`
 		SELECT
 			id,
 			username,
-			email
+			email,
+			password
 		FROM
 			users
 		WHERE
-			deleted_at = 0 AND email = $1 AND password = $2
-	`, user.Email, user.Password).Scan(&userResp.ID, &userResp.Username, &userResp.Email)
+			deleted_at = 0 AND email = $1
+	`, email).Scan(&userResp.ID, &userResp.Username, &userResp.Email)
 
 	if err != nil {
 		repo.Logger.Error("Error get user", slog.String("error", err.Error()))
