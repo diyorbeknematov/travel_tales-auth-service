@@ -25,6 +25,7 @@ type ItinerariesServiceClient interface {
 	CreateItinerary(ctx context.Context, in *CreateItineraryRequest, opts ...grpc.CallOption) (*CreateItineraryResponse, error)
 	UpdateItinerary(ctx context.Context, in *UpdateItineraryRequest, opts ...grpc.CallOption) (*UpdateItineraryResponse, error)
 	DeleteItinerary(ctx context.Context, in *DeleteItineraryRequest, opts ...grpc.CallOption) (*DeleteItineraryResponse, error)
+	ListItineraries(ctx context.Context, in *ListItinerariesRequest, opts ...grpc.CallOption) (*ListItinerariesResponse, error)
 	GetItinerary(ctx context.Context, in *GetItineraryRequest, opts ...grpc.CallOption) (*GetItineraryResponse, error)
 	LeaveComment(ctx context.Context, in *LeaveCommentRequest, opts ...grpc.CallOption) (*LeaveCommentResponse, error)
 }
@@ -64,6 +65,15 @@ func (c *itinerariesServiceClient) DeleteItinerary(ctx context.Context, in *Dele
 	return out, nil
 }
 
+func (c *itinerariesServiceClient) ListItineraries(ctx context.Context, in *ListItinerariesRequest, opts ...grpc.CallOption) (*ListItinerariesResponse, error) {
+	out := new(ListItinerariesResponse)
+	err := c.cc.Invoke(ctx, "/itineraries_service.ItinerariesService/ListItineraries", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *itinerariesServiceClient) GetItinerary(ctx context.Context, in *GetItineraryRequest, opts ...grpc.CallOption) (*GetItineraryResponse, error) {
 	out := new(GetItineraryResponse)
 	err := c.cc.Invoke(ctx, "/itineraries_service.ItinerariesService/GetItinerary", in, out, opts...)
@@ -89,6 +99,7 @@ type ItinerariesServiceServer interface {
 	CreateItinerary(context.Context, *CreateItineraryRequest) (*CreateItineraryResponse, error)
 	UpdateItinerary(context.Context, *UpdateItineraryRequest) (*UpdateItineraryResponse, error)
 	DeleteItinerary(context.Context, *DeleteItineraryRequest) (*DeleteItineraryResponse, error)
+	ListItineraries(context.Context, *ListItinerariesRequest) (*ListItinerariesResponse, error)
 	GetItinerary(context.Context, *GetItineraryRequest) (*GetItineraryResponse, error)
 	LeaveComment(context.Context, *LeaveCommentRequest) (*LeaveCommentResponse, error)
 	mustEmbedUnimplementedItinerariesServiceServer()
@@ -106,6 +117,9 @@ func (UnimplementedItinerariesServiceServer) UpdateItinerary(context.Context, *U
 }
 func (UnimplementedItinerariesServiceServer) DeleteItinerary(context.Context, *DeleteItineraryRequest) (*DeleteItineraryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteItinerary not implemented")
+}
+func (UnimplementedItinerariesServiceServer) ListItineraries(context.Context, *ListItinerariesRequest) (*ListItinerariesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListItineraries not implemented")
 }
 func (UnimplementedItinerariesServiceServer) GetItinerary(context.Context, *GetItineraryRequest) (*GetItineraryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetItinerary not implemented")
@@ -180,6 +194,24 @@ func _ItinerariesService_DeleteItinerary_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ItinerariesService_ListItineraries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListItinerariesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ItinerariesServiceServer).ListItineraries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/itineraries_service.ItinerariesService/ListItineraries",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ItinerariesServiceServer).ListItineraries(ctx, req.(*ListItinerariesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ItinerariesService_GetItinerary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetItineraryRequest)
 	if err := dec(in); err != nil {
@@ -234,6 +266,10 @@ var ItinerariesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteItinerary",
 			Handler:    _ItinerariesService_DeleteItinerary_Handler,
+		},
+		{
+			MethodName: "ListItineraries",
+			Handler:    _ItinerariesService_ListItineraries_Handler,
 		},
 		{
 			MethodName: "GetItinerary",

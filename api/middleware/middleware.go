@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"auth-service/api/token"
+	"auth-service/api/handler/token"
 	"auth-service/logs"
 	"fmt"
 	"log/slog"
@@ -26,7 +26,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		claims, err := token.ExtractClaim(authHeader)
+		claims, err := token.ExtractClaims(authHeader)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 			return

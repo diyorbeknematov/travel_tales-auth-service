@@ -27,6 +27,7 @@ type TravelStoriesServiceClient interface {
 	DeleteTravelStory(ctx context.Context, in *DeleteTravelStoryRequest, opts ...grpc.CallOption) (*DeleteTravelStoryResponse, error)
 	ListTravelStory(ctx context.Context, in *ListTravelStoryRequest, opts ...grpc.CallOption) (*ListTravelStoryResponse, error)
 	GetTravelStory(ctx context.Context, in *GetTravelStoryRequest, opts ...grpc.CallOption) (*GetTravelStoryResponse, error)
+	AddCommment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
 	ListComments(ctx context.Context, in *ListCommentsRequest, opts ...grpc.CallOption) (*ListCommentsResponse, error)
 	AddLike(ctx context.Context, in *AddLikeRequest, opts ...grpc.CallOption) (*AddLikeResponse, error)
 }
@@ -84,6 +85,15 @@ func (c *travelStoriesServiceClient) GetTravelStory(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *travelStoriesServiceClient) AddCommment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error) {
+	out := new(AddCommentResponse)
+	err := c.cc.Invoke(ctx, "/travel_stories.TravelStoriesService/AddCommment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *travelStoriesServiceClient) ListComments(ctx context.Context, in *ListCommentsRequest, opts ...grpc.CallOption) (*ListCommentsResponse, error) {
 	out := new(ListCommentsResponse)
 	err := c.cc.Invoke(ctx, "/travel_stories.TravelStoriesService/ListComments", in, out, opts...)
@@ -111,6 +121,7 @@ type TravelStoriesServiceServer interface {
 	DeleteTravelStory(context.Context, *DeleteTravelStoryRequest) (*DeleteTravelStoryResponse, error)
 	ListTravelStory(context.Context, *ListTravelStoryRequest) (*ListTravelStoryResponse, error)
 	GetTravelStory(context.Context, *GetTravelStoryRequest) (*GetTravelStoryResponse, error)
+	AddCommment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
 	ListComments(context.Context, *ListCommentsRequest) (*ListCommentsResponse, error)
 	AddLike(context.Context, *AddLikeRequest) (*AddLikeResponse, error)
 	mustEmbedUnimplementedTravelStoriesServiceServer()
@@ -134,6 +145,9 @@ func (UnimplementedTravelStoriesServiceServer) ListTravelStory(context.Context, 
 }
 func (UnimplementedTravelStoriesServiceServer) GetTravelStory(context.Context, *GetTravelStoryRequest) (*GetTravelStoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTravelStory not implemented")
+}
+func (UnimplementedTravelStoriesServiceServer) AddCommment(context.Context, *AddCommentRequest) (*AddCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCommment not implemented")
 }
 func (UnimplementedTravelStoriesServiceServer) ListComments(context.Context, *ListCommentsRequest) (*ListCommentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListComments not implemented")
@@ -244,6 +258,24 @@ func _TravelStoriesService_GetTravelStory_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TravelStoriesService_AddCommment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TravelStoriesServiceServer).AddCommment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/travel_stories.TravelStoriesService/AddCommment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TravelStoriesServiceServer).AddCommment(ctx, req.(*AddCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TravelStoriesService_ListComments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListCommentsRequest)
 	if err := dec(in); err != nil {
@@ -306,6 +338,10 @@ var TravelStoriesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTravelStory",
 			Handler:    _TravelStoriesService_GetTravelStory_Handler,
+		},
+		{
+			MethodName: "AddCommment",
+			Handler:    _TravelStoriesService_AddCommment_Handler,
 		},
 		{
 			MethodName: "ListComments",

@@ -50,7 +50,7 @@ func GenerateRefreshJWT(user *models.UserLogin) (string, error) {
 	return accessToken.SignedString([]byte(cfg.REFRESH_TOKEN))
 }
 
-func ExtractClaim(tokenString string) (*Claims, error) {
+func ExtractClaims(tokenString string) (*Claims, error) {
 	cfg := config.Load()
 	claims := &Claims{}
 
@@ -70,7 +70,7 @@ func ExtractClaim(tokenString string) (*Claims, error) {
 }
 
 func ValidateToken(tokenStr string) (bool, error) {
-	_, err := ExtractClaim(tokenStr)
+	_, err := ExtractClaims(tokenStr)
 	if err != nil {
 		return false, err
 	}

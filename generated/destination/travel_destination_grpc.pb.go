@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type TravelDestinationServiceClient interface {
 	ListTravelDestnations(ctx context.Context, in *ListDetinationRequest, opts ...grpc.CallOption) (*ListDetinationResponse, error)
 	GetTravelDestination(ctx context.Context, in *GetDestinationRequest, opts ...grpc.CallOption) (*GetDestinationResponse, error)
-	GetTrendDestinations(ctx context.Context, in *GetDestinationRequest, opts ...grpc.CallOption) (*GetDestinationResponse, error)
+	GetTrendDestinations(ctx context.Context, in *GetTrendDestinationRequest, opts ...grpc.CallOption) (*GetTrendDestinationResponse, error)
 }
 
 type travelDestinationServiceClient struct {
@@ -53,8 +53,8 @@ func (c *travelDestinationServiceClient) GetTravelDestination(ctx context.Contex
 	return out, nil
 }
 
-func (c *travelDestinationServiceClient) GetTrendDestinations(ctx context.Context, in *GetDestinationRequest, opts ...grpc.CallOption) (*GetDestinationResponse, error) {
-	out := new(GetDestinationResponse)
+func (c *travelDestinationServiceClient) GetTrendDestinations(ctx context.Context, in *GetTrendDestinationRequest, opts ...grpc.CallOption) (*GetTrendDestinationResponse, error) {
+	out := new(GetTrendDestinationResponse)
 	err := c.cc.Invoke(ctx, "/travel_destination.TravelDestinationService/GetTrendDestinations", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (c *travelDestinationServiceClient) GetTrendDestinations(ctx context.Contex
 type TravelDestinationServiceServer interface {
 	ListTravelDestnations(context.Context, *ListDetinationRequest) (*ListDetinationResponse, error)
 	GetTravelDestination(context.Context, *GetDestinationRequest) (*GetDestinationResponse, error)
-	GetTrendDestinations(context.Context, *GetDestinationRequest) (*GetDestinationResponse, error)
+	GetTrendDestinations(context.Context, *GetTrendDestinationRequest) (*GetTrendDestinationResponse, error)
 	mustEmbedUnimplementedTravelDestinationServiceServer()
 }
 
@@ -82,7 +82,7 @@ func (UnimplementedTravelDestinationServiceServer) ListTravelDestnations(context
 func (UnimplementedTravelDestinationServiceServer) GetTravelDestination(context.Context, *GetDestinationRequest) (*GetDestinationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTravelDestination not implemented")
 }
-func (UnimplementedTravelDestinationServiceServer) GetTrendDestinations(context.Context, *GetDestinationRequest) (*GetDestinationResponse, error) {
+func (UnimplementedTravelDestinationServiceServer) GetTrendDestinations(context.Context, *GetTrendDestinationRequest) (*GetTrendDestinationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTrendDestinations not implemented")
 }
 func (UnimplementedTravelDestinationServiceServer) mustEmbedUnimplementedTravelDestinationServiceServer() {
@@ -136,7 +136,7 @@ func _TravelDestinationService_GetTravelDestination_Handler(srv interface{}, ctx
 }
 
 func _TravelDestinationService_GetTrendDestinations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDestinationRequest)
+	in := new(GetTrendDestinationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ func _TravelDestinationService_GetTrendDestinations_Handler(srv interface{}, ctx
 		FullMethod: "/travel_destination.TravelDestinationService/GetTrendDestinations",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TravelDestinationServiceServer).GetTrendDestinations(ctx, req.(*GetDestinationRequest))
+		return srv.(TravelDestinationServiceServer).GetTrendDestinations(ctx, req.(*GetTrendDestinationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

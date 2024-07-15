@@ -20,9 +20,9 @@ func NewUserRepo(db *sql.DB, logger *slog.Logger) *UserRepo {
 	}
 }
 
-func (repo *UserRepo) CreateUser(user *pb.RegisterRequest) (*pb.RegisterResponse, error) {
+func (repo *UserRepo) CreateUser(user models.Register) (*models.Register, error) {
 	var (
-		userResp  pb.RegisterResponse
+		userResp  models.Register
 		createdAt time.Time
 	)
 	err := repo.DB.QueryRow(`
@@ -45,7 +45,7 @@ func (repo *UserRepo) CreateUser(user *pb.RegisterRequest) (*pb.RegisterResponse
 			full_name,
 			created_at
 	`, user.Username, user.Email, user.Password, user.FullName).
-		Scan(&userResp.Id, &userResp.Username, &userResp.Email, &userResp.FullName, &createdAt)
+		Scan(&userResp.ID, &userResp.Username, &userResp.Email, &userResp.FullName, &createdAt)
 
 	if err != nil {
 		repo.Logger.Error("Error creating user", slog.String("error", err.Error()))
@@ -82,6 +82,69 @@ func (repo *UserRepo) GetUserByEmail(email string) (*models.UserLogin, error) {
 	return &userResp, nil
 }
 
+func (repo *UserRepo) UpdatePassword(resetPassword models.UpdatePassword) (*models.Success, error) {
+	_, err := repo.DB.Exec(`
+		UPDATE 
+			users 
+		SET 
+			password = $1 
+		WHERE 
+			id = $2 and deleted_at = 0
+	`, resetPassword.NewPassword,resetPassword.ID )	
+
+	if err != nil {
+		repo.Logger.Error("Error in reset password", slog.String("eror", err.Error()))
+		return &models.Success{
+			Message: "Error in updated password",
+		}, err
+	}
+
+	return &models.Success{
+		Message: "Reset password successfully",
+	},nil
+}
+
+func (repo *UserRepo) EmailExists(email string) (bool, error) {
+	var exists bool
+	err := repo.DB.QueryRow(`
+		SELECT
+			EXISTS (
+				SELECT 1
+				FROM users
+				WHERE email = $1
+			)
+	`, email).Scan(&exists)
+
+	if err != nil {
+		repo.Logger.Error("Emailni bor yo'qligini tekshirishda xatolik", slog.String("error", err.Error()))
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (repo *UserRepo) GetUserInfo(id string) (*pb.UserInfoResponse, error) {
+	var info pb.UserInfoResponse
+
+	err := repo.DB.QueryRow(`
+		SELECT
+			id,
+			username,
+			full_name
+		FROM
+			users
+		WHERE
+			deleted_at = 0 and id = $1
+	`, id).Scan(&info.Id, &info.Username, &info.FullName)
+
+	if err != nil {
+		repo.Logger.Error("Error in get user info", slog.String("error", err.Error()))
+		return nil, err
+	}
+
+	return &info, nil
+}
+
 func (repo *UserRepo) GetUserProfile(id string) (*pb.GetProfileResponse, error) {
 	var (
 		profile   pb.GetProfileResponse
@@ -116,6 +179,41 @@ func (repo *UserRepo) GetUserProfile(id string) (*pb.GetProfileResponse, error) 
 
 	profile.Bio = bio.String
 	profile.CreatedAt = createdAt.Format("2006-01-02 15:04:05")
+	profile.UpdatedAt = updatedAt.Format("2006-01-02 15:04:05")
+
+	return &profile, nil
+}
+
+func (repo *UserRepo) UpdateUserProfile(req *pb.UpdateProfileRequest) (*pb.UpdateProfileResponse, error) {
+	var (
+		profile   pb.UpdateProfileResponse
+		updatedAt time.Time
+	)
+
+	err := repo.DB.QueryRow(`
+		UPDATE 
+			users
+		SET 
+			full_name = $1,
+			bio = $2,
+			countries_visited = $3
+		WHERE
+			id = $1 AND deleted_at = 0
+		RETURNING
+			id,
+			username,
+			email,
+			full_name,
+			bio,
+			countries_visited,
+			updated_at
+		
+	`, req.FullName, req.Bio, req.CountriesVisited, req.Id).Scan(&profile.Id, &profile.Username, &profile.Email, &profile.FullName, &profile.Bio, &profile.CountriesVisited, &updatedAt)
+
+	if err != nil {
+		repo.Logger.Error("Error Get user profile", slog.String("error", err.Error()))
+	}
+
 	profile.UpdatedAt = updatedAt.Format("2006-01-02 15:04:05")
 
 	return &profile, nil
@@ -212,20 +310,90 @@ func (repo *UserRepo) DeleteUser(id string) (*pb.DeleteUserResponse, error) {
 	}, nil
 }
 
-func (repo *UserRepo) ResetPassword(resetPassword models.UpdatePassword) (error) {
-	_, err := repo.DB.Exec(`
-		UPDATE 
-			users 
-		SET 
-			password = $1 
-		WHERE 
-			id = $2
-	`, resetPassword.NewPassword,resetPassword.ID )	
+func (repo *UserRepo) FollowingUser(req *pb.FollowUserRequest) (*pb.FollowUserResponse, error) {
+	var follower pb.FollowUserResponse
+
+	err := repo.DB.QueryRow(`
+		INSERT INTO followers (
+			follower_id,
+			following_id
+		)
+		VALUES (
+			$1,
+			$2
+		)
+		RETURNING
+			follower_id,
+			following_id,
+			followed_at
+	`, req.FollowerId, req.FollowingId).Scan(&follower.FollowerId, &follower.FollowingId, &follower.FollowingAt)
 
 	if err != nil {
-		repo.Logger.Error("Error in reset password", slog.String("eror", err.Error()))
-		return nil
+		repo.Logger.Error("Error in following user", slog.String("error", err.Error()))
+		return nil, err
+	}
+	return &follower, nil
+}
+
+func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollowersResponse, error) {
+	var followers []*pb.Follower
+	offset := (req.Page - 1) * req.Limit
+	rows, err := repo.DB.Query(`
+		SELECT
+			id,
+			username,
+			full_name
+		FROM
+			users u
+		INNER JOIN
+			followers f ON u.id = f.follower_id
+		WHERE
+			f.following_id = $1 and deleted_at = 0
+		OFFSET $2
+		LIMIT $3
+	`, req.UserId, offset, req.Limit)
+
+	if err != nil {
+		repo.Logger.Error("Error in get followers", slog.String("error", err.Error()))
+		return nil, err
 	}
 
-	return nil
+	for rows.Next() {
+		var follower pb.Follower
+		
+		err = rows.Scan(&follower.Id, &follower.Username, &follower.FullName)
+		if err != nil {
+			repo.Logger.Error("Error in scan follower", slog.String("error", err.Error()))
+			return nil, err
+		}
+
+		followers = append(followers, &follower)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	var total int32
+	err = repo.DB.QueryRow(`
+		SELECT
+			COUNT(*)
+		FROM
+			users u
+		INNER JOIN
+			followers f ON u.id = f.follower_id
+		WHERE
+			f.following_id = $1 and u.deleted_at = 0
+	`).Scan(&total)
+	if err != nil {
+		repo.Logger.Error("Error in get followers count", slog.String("error", err.Error()))
+		return nil, err
+	}
+
+	return &pb.ListFollowersResponse{
+		Followers: followers,
+		Total: total,
+		Page: req.Page,
+		Limit: req.Limit,
+	}, nil
 }
