@@ -16,7 +16,7 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-func GenerateAccessJWT(signUp *models.UserLogin) (string, error) {
+func GenerateAccessJWT(signUp *models.LoginResponse) (string, error) {
 	cfg := config.Load()
 
 	claims := Claims{
@@ -31,10 +31,10 @@ func GenerateAccessJWT(signUp *models.UserLogin) (string, error) {
 
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	return accessToken.SignedString(cfg.ACCESS_TOKEN)
+	return accessToken.SignedString([]byte(cfg.ACCESS_TOKEN))
 }
 
-func GenerateRefreshJWT(user *models.UserLogin) (string, error) {
+func GenerateRefreshJWT(user *models.LoginResponse) (string, error) {
 	cfg := config.Load()
 	claims := &Claims{
 		UserId:   user.ID,
@@ -69,8 +69,27 @@ func ExtractClaims(tokenString string) (*Claims, error) {
 	return claims, nil
 }
 
+func ExtractClaimsAccess(tokenString string) (*Claims, error) {
+	cfg := config.Load()
+	claims := &Claims{}
+
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(cfg.ACCESS_TOKEN), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if !token.Valid {
+		return nil, errors.New("invalid token")
+	}
+
+	return claims, nil
+}
+
 func ValidateToken(tokenStr string) (bool, error) {
-	_, err := ExtractClaims(tokenStr)
+	_, err := ExtractClaimsAccess(tokenStr)
 	if err != nil {
 		return false, err
 	}

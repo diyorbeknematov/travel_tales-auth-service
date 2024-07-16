@@ -9,9 +9,10 @@ import (
 )
 
 type UserService struct {
-	UserRepo postgres.UserRepo
-	Logger   *slog.Logger
-	RedisClient redis.RedisClient    
+	pb.UnimplementedAuthServiceServer
+	UserRepo    *postgres.UserRepo
+	Logger      *slog.Logger
+	RedisClient *redis.RedisClient
 }
 
 func (s *UserService) UserInfo(ctx context.Context, in *pb.UserInfoRequest) (*pb.UserInfoResponse, error) {
@@ -57,6 +58,7 @@ func (s *UserService) DeleteUser(ctx context.Context, in *pb.DeleteUserRequest) 
 	resp, err := s.UserRepo.DeleteUser(in.Id)
 	if err != nil {
 		s.Logger.Error("Userni o'chirishda xatolik", slog.String("error", err.Error()))
+		return nil, err
 	}
 
 	return resp, nil

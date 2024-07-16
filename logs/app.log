@@ -1,0 +1,90 @@
+{"time":"2024-07-16T01:07:30.084288878+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:07:30.101179064+05:00","level":"ERROR","msg":"Error connection th postgres","error":"pq: database \"travel_tales_auth_service\" does not exist"}
+{"time":"2024-07-16T01:12:52.768867676+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:12:52.778926651+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:12:52.778973281+05:00","level":"INFO","msg":"server is running","PORT":":8080"}
+{"time":"2024-07-16T01:15:18.922743989+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:15:18.93010596+05:00","level":"INFO","msg":"server is running","PORT":":8080"}
+{"time":"2024-07-16T01:15:18.930274624+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:15:36.226665126+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:15:36.233975043+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:15:36.234155049+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:25:30.445801254+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:25:30.455089159+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:25:30.455327372+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:28:49.138943605+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:28:49.14789584+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:28:49.148131205+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:38:08.147403508+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:38:08.159321506+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:38:08.159769937+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:40:46.393574876+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:40:46.400961474+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:40:46.401086727+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:42:48.43315625+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:42:48.440336531+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:42:48.440568992+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:43:14.098690016+05:00","level":"ERROR","msg":"Error register user","error":"pq: column \"password\" of relation \"users\" does not exist"}
+{"time":"2024-07-16T01:45:11.62006819+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:45:11.628213909+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:45:11.628417885+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:45:59.990662026+05:00","level":"ERROR","msg":"Error getting user by email","error":"sql: expected 4 destination arguments in Scan, not 3"}
+{"time":"2024-07-16T01:46:41.642192899+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:46:41.649940764+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:46:41.65005728+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:46:47.016170699+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:50:34.8967312+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:50:34.905300355+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:50:34.905487328+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:50:39.74054402+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:36.214689232+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:37.444471639+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:37.654875942+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:37.83957231+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:38.036359942+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:51:38.219228536+05:00","level":"ERROR","msg":"Invalid password","error":"crypto/bcrypt: hashedSecret too short to be a bcrypted password"}
+{"time":"2024-07-16T01:54:49.359432053+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:54:49.366769145+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:54:49.36693458+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:54:59.12148637+05:00","level":"ERROR","msg":"Error generating access token:","error":"key is of invalid type"}
+{"time":"2024-07-16T01:57:13.393337529+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:57:13.403246238+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:57:13.403701982+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:57:18.021044831+05:00","level":"ERROR","msg":"Error generating access token:","error":"key is of invalid type"}
+{"time":"2024-07-16T01:58:20.067862893+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T01:58:20.074895409+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T01:58:20.075068407+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T01:58:29.329553866+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T01:59:16.234594214+05:00","level":"ERROR","msg":"eror tokenni extract qilishda","error":"signature is invalid"}
+{"time":"2024-07-16T02:04:49.862658836+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:04:49.873035105+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:04:49.873262268+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:07:12.367980185+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:07:12.376301586+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:07:12.376529869+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:07:37.9849304+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:07:37.993075026+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:07:37.993265312+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:09:41.625409842+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:09:41.63302793+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:09:41.633273183+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:10:33.39948045+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:10:33.407172548+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:10:33.407389021+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:11:36.953852075+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:11:36.961841367+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:11:36.962059026+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:12:24.130790734+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T02:12:37.66834877+05:00","level":"INFO","msg":"Handling RefreshToken request"}
+{"time":"2024-07-16T02:13:23.731908927+05:00","level":"ERROR","msg":"Error in send email reset password link","error":"535 5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 38308e7fff4ca-2eee17b1c4dsm9840231fa.55 - gsmtp"}
+{"time":"2024-07-16T02:24:26.226805733+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:24:26.236200083+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:24:26.23650702+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:24:40.33503411+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T02:25:22.834739231+05:00","level":"ERROR","msg":"eror tokenni extract qilishda","error":"signature is invalid"}
+{"time":"2024-07-16T02:26:09.358909815+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:26:09.367247214+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:26:09.367382528+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T02:30:05.920760885+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T02:30:05.928044703+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T02:30:05.928192366+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}

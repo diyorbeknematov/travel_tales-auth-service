@@ -31,3 +31,13 @@ func(rdb *RedisClient) BlacklistToken(token string, expirationTime time.Duration
 	}
 	return nil
 }
+
+func (rdb *RedisClient) IsTokenBlacklisted(token string) (bool, error) {
+    val, err := rdb.R.Get(ctx, token).Result()
+    if err == redis.Nil {
+        return false, nil
+    } else if err != nil {
+        return false, err
+    }
+    return val == "blacklisted", nil
+}

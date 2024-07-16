@@ -10,6 +10,7 @@ import (
 
 type Config struct {
 	HTTP_PORT     string
+	GRPC_PORT     string
 	DB_HOST       string
 	DB_PORT       string
 	DB_USER       string
@@ -26,6 +27,8 @@ func Load() Config {
 
 	config := Config{}
 
+	config.HTTP_PORT = cast.ToString(coalesce("HTTP_PORT", ":8080"))
+	config.GRPC_PORT = cast.ToString(coalesce("GRPC_PORT", ":50050"))
 	config.DB_HOST = cast.ToString(coalesce("DB_HOST", "localhost"))
 	config.DB_PORT = cast.ToString(coalesce("DB_PORT", "5432"))
 	config.DB_USER = cast.ToString(coalesce("DB_USER", "postgres"))
@@ -33,7 +36,7 @@ func Load() Config {
 	config.DB_PASSWORD = cast.ToString(coalesce("DB_PASSWORD", "passwrod"))
 	config.ACCESS_TOKEN = cast.ToString(coalesce("ACCESS_TOKEN", "my_secret_key"))
 	config.REFRESH_TOKEN = cast.ToString(coalesce("REFRESH_TOKEN", "my_secret_key"))
-	
+
 	return config
 }
 

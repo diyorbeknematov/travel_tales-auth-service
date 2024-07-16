@@ -17,12 +17,12 @@ import (
 // @Tags Auth
 // @Accept json
 // @Produce json
-// @Param Register body models.Register true "User Registration"
-// @Success 201 {object} models.Register
+// @Param Register body models.RegisterRequest true "User Registration"
+// @Success 201 {object} models.RegisterResponse
 // @Failure 400 {object} models.Errors
-// @Router /auth/register [post]
+// @Router /api/v1/auth/register [post]
 func (h *Handler) RegisterHandler(ctx *gin.Context) {
-	var signUp models.Register
+	var signUp models.RegisterRequest
 
 	if err := ctx.ShouldBindJSON(&signUp); err != nil {
 		h.Logger.Error("Error bind json")
@@ -60,14 +60,14 @@ func (h *Handler) RegisterHandler(ctx *gin.Context) {
 // @Tags Auth
 // @Accept json
 // Produce json
-// @Param Login body models.UserLogin true "User Login"
+// @Param Login body models.LoginRequest true "User Login"
 // @Success 200 {object} models.Token
 // @Failure 400 {object} models.Errors
 // @Failure 404 {object} models.Errors
 // @Failure 500 {object} models.Errors
-// @Router /auth/login [post]
+// @Router /api/v1/auth/login [post]
 func (h *Handler) LoginHandler(ctx *gin.Context) {
-	var signIn models.UserLogin
+	var signIn models.LoginRequest
 
 	if err := ctx.ShouldBindJSON(&signIn); err != nil {
 		h.Logger.Error("Error bind json")
@@ -85,7 +85,8 @@ func (h *Handler) LoginHandler(ctx *gin.Context) {
 		})
 		return
 	}
-	if err := bcrypt.CompareHashAndPassword([]byte(signIn.Password), []byte(user.Password)); err != nil {
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(signIn.Password)); err != nil {
 		h.Logger.Error("Invalid password", "error", err.Error())
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"Error": err.Error(),
@@ -130,11 +131,11 @@ func (h *Handler) LoginHandler(ctx *gin.Context) {
 // @Success 200 {object} models.Success
 // @Failure 404 {object} models.Errors
 // @Failure 500 {object} models.Errors
-// @Router /auth/logout [post]
+// @Router /api/v1/auth/logout [post]
 func (h *Handler) LogoutUserHandler(ctx *gin.Context) {
 	accessToken := ctx.GetHeader("Authorization")
 
-	accessClaims, err := token.ExtractClaims(accessToken)
+	accessClaims, err := token.ExtractClaimsAccess(accessToken)
 	if err != nil {
 		h.Logger.Error("eror tokenni extract qilishda", slog.String("error", err.Error()))
 		ctx.JSON(http.StatusInternalServerError, gin.H{
@@ -160,16 +161,16 @@ func (h *Handler) LogoutUserHandler(ctx *gin.Context) {
 
 // @Summary Reset Password
 // @Description Userni parolini qayta tiklash
-// Tags Auth
-// Accept json
+// @Tags Auth
+// @Accept json
 // @Security ApiKeyAuth
-// Produce json
-// Param ResetPassword body models.ResetPassword true "Reset password"
-// Success 200 {object} models.Success
-// Failure 404 {object} models.Errors
-// Failure 400 {object} models.Errors
-// Failure 500 {object} models.Errors
-// Router /auth/reset-password [post]
+// @Produce json
+// @Param ResetPassword body models.ResetPassword true "Reset password"
+// @Success 200 {object} models.Success
+// @Failure 404 {object} models.Errors
+// @Failure 400 {object} models.Errors
+// @Failure 500 {object} models.Errors
+// @Router /api/v1/auth/reset-password [post]
 func (h *Handler) ResetPasswordHandler(ctx *gin.Context) {
 	var email models.ResetPassword
 
@@ -181,7 +182,7 @@ func (h *Handler) ResetPasswordHandler(ctx *gin.Context) {
 		return
 	}
 
-	newtoken, err := token.GenerateAccessJWT(&models.UserLogin{
+	newtoken, err := token.GenerateAccessJWT(&models.LoginResponse{
 		ID:       ctx.GetString("user-id"),
 		Username: ctx.GetString("username"),
 		Email:    ctx.GetString("email"),
@@ -224,12 +225,12 @@ func (h *Handler) ResetPasswordHandler(ctx *gin.Context) {
 // @Success 200 {object} models.Success
 // @Failure 400 {object} models.Errors
 // @Failure 500 {object} models.Errors
-// Router /auth/reset-password/new-password [post]
-func (h *Handler) UpdatePassword(ctx *gin.Context) {
+// @Router /api/v1/auth/reset-password/new-password [post]
+func (h *Handler) UpdatePasswordHandler(ctx *gin.Context) {
 	var pass models.UpdatePassword
 	accesstoken := ctx.Query("token")
 	claims, err := token.ExtractClaims(accesstoken)
-	
+
 	if err != nil {
 		h.Logger.Error("Error tokenni tekshirishda", slog.String("error", err.Error()))
 		ctx.JSON(http.StatusBadRequest, models.Errors{
@@ -269,7 +270,7 @@ func (h *Handler) UpdatePassword(ctx *gin.Context) {
 // @Failure 401 {object} models.Errors
 // @Failure 500 {object} models.Errors
 // @Security ApiKeyAuth
-// @Router /auth/refresh_token [get]
+// @Router /api/v1/auth/refresh [post]
 func (h *Handler) RefreshToken(c *gin.Context) {
 	h.Logger.Info("Handling RefreshToken request")
 
@@ -284,13 +285,21 @@ func (h *Handler) RefreshToken(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid token"})
 		return
 	}
+	isValid, err := h.UserRepo.IsRefreshTokenValid(refreshToken)
+	if err != nil || !isValid {
+		h.Logger.Error("token invalid", slog.String("error", err.Error()))
+		c.JSON(http.StatusUnauthorized, models.Errors{
+			Message: "token invalid",
+		})
+		return
+	}
 
 	if claims.ExpiresAt < time.Now().Unix() {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Token has expired"})
 		return
 	}
 
-	newAccessToken, err := token.GenerateAccessJWT(&models.UserLogin{
+	newAccessToken, err := token.GenerateAccessJWT(&models.LoginResponse{
 		ID:       claims.UserId,
 		Username: claims.Username,
 		Email:    claims.Email,

@@ -12,9 +12,10 @@ type Handler struct {
 	Logger      *slog.Logger
 }
 
-func NewHandler(user *postgres.UserRepo, logger *slog.Logger) *Handler {
+func NewHandler(user *postgres.UserRepo, logger *slog.Logger, client *redis.RedisClient) *Handler {
 	return &Handler{
 		UserRepo: user,
 		Logger:   logger,
+		RedisClient: client,
 	}
 }

@@ -1,6 +1,13 @@
 package models
 
-type Register struct {
+type RegisterRequest struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	FullName string `json:"full_name"`
+}
+
+type RegisterResponse struct {
 	ID        string `json:"id"`
 	Username  string `json:"username"`
 	Email     string `json:"email"`
@@ -9,7 +16,12 @@ type Register struct {
 	CreatedAt string `json:"created_at"`
 }
 
-type UserLogin struct {
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type LoginResponse struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
@@ -24,7 +36,6 @@ type UpdatePassword struct {
 	ID          string `json:"id"`
 	NewPassword string `json:"new_password"`
 }
-
 
 type Token struct {
 	AccessToken  string `json:"access_token"`

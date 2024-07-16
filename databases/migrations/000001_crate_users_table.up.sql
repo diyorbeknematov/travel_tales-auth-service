@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id UUID PRIMARY KEY,
+    id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -12,16 +12,16 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
-    id UUID DEFAULT GEN_RANDOM_UUDI() PRIMARY KEY,
+    id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     token TEXT NOT NULL,
     expires_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS followers (
-    id SERIAL PRIMARY KEY,
-    follower_id INT NOT NULL,
-    following_id INT NOT NULL,
+    id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+    follower_id UUID NOT NULL,
+    following_id UUID NOT NULL,
     followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (follower_id) REFERENCES users (id),
     FOREIGN KEY (following_id) REFERENCES users (id)

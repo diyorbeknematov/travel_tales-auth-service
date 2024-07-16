@@ -4,32 +4,29 @@ import (
 	pb "auth-service/generated/user"
 	"auth-service/models"
 	"database/sql"
-	"log/slog"
 	"time"
 )
 
 type UserRepo struct {
-	DB     *sql.DB
-	Logger *slog.Logger
+	DB *sql.DB
 }
 
-func NewUserRepo(db *sql.DB, logger *slog.Logger) *UserRepo {
+func NewUserRepo(db *sql.DB) *UserRepo {
 	return &UserRepo{
-		DB:     db,
-		Logger: logger,
+		DB: db,
 	}
 }
 
-func (repo *UserRepo) CreateUser(user models.Register) (*models.Register, error) {
+func (repo *UserRepo) CreateUser(user models.RegisterRequest) (*models.RegisterResponse, error) {
 	var (
-		userResp  models.Register
+		userResp  models.RegisterResponse
 		createdAt time.Time
 	)
 	err := repo.DB.QueryRow(`
 		INSERT INTO users (
 			username,
 			email,
-			password,
+			password_hash,
 			full_name
 		)
 		VALUES (
@@ -48,34 +45,30 @@ func (repo *UserRepo) CreateUser(user models.Register) (*models.Register, error)
 		Scan(&userResp.ID, &userResp.Username, &userResp.Email, &userResp.FullName, &createdAt)
 
 	if err != nil {
-		repo.Logger.Error("Error creating user", slog.String("error", err.Error()))
 		return nil, err
 	}
 
 	userResp.CreatedAt = createdAt.Format("2006-01-02 15:04:05")
 
-	repo.Logger.Info("User created deleted")
-
 	return &userResp, nil
 }
 
-func (repo *UserRepo) GetUserByEmail(email string) (*models.UserLogin, error) {
-	var userResp models.UserLogin
+func (repo *UserRepo) GetUserByEmail(email string) (*models.LoginResponse, error) {
+	var userResp models.LoginResponse
 
 	err := repo.DB.QueryRow(`
 		SELECT
 			id,
 			username,
 			email,
-			password
+			password_hash
 		FROM
 			users
 		WHERE
 			deleted_at = 0 AND email = $1
-	`, email).Scan(&userResp.ID, &userResp.Username, &userResp.Email)
+	`, email).Scan(&userResp.ID, &userResp.Username, &userResp.Email, &userResp.Password)
 
 	if err != nil {
-		repo.Logger.Error("Error get user", slog.String("error", err.Error()))
 		return nil, err
 	}
 
@@ -87,13 +80,12 @@ func (repo *UserRepo) UpdatePassword(resetPassword models.UpdatePassword) (*mode
 		UPDATE 
 			users 
 		SET 
-			password = $1 
+			password_hash = $1 
 		WHERE 
 			id = $2 and deleted_at = 0
-	`, resetPassword.NewPassword,resetPassword.ID )	
+	`, resetPassword.NewPassword, resetPassword.ID)
 
 	if err != nil {
-		repo.Logger.Error("Error in reset password", slog.String("eror", err.Error()))
 		return &models.Success{
 			Message: "Error in updated password",
 		}, err
@@ -101,7 +93,7 @@ func (repo *UserRepo) UpdatePassword(resetPassword models.UpdatePassword) (*mode
 
 	return &models.Success{
 		Message: "Reset password successfully",
-	},nil
+	}, nil
 }
 
 func (repo *UserRepo) EmailExists(email string) (bool, error) {
@@ -116,7 +108,6 @@ func (repo *UserRepo) EmailExists(email string) (bool, error) {
 	`, email).Scan(&exists)
 
 	if err != nil {
-		repo.Logger.Error("Emailni bor yo'qligini tekshirishda xatolik", slog.String("error", err.Error()))
 		return false, err
 	}
 
@@ -138,7 +129,6 @@ func (repo *UserRepo) GetUserInfo(id string) (*pb.UserInfoResponse, error) {
 	`, id).Scan(&info.Id, &info.Username, &info.FullName)
 
 	if err != nil {
-		repo.Logger.Error("Error in get user info", slog.String("error", err.Error()))
 		return nil, err
 	}
 
@@ -170,7 +160,7 @@ func (repo *UserRepo) GetUserProfile(id string) (*pb.GetProfileResponse, error) 
 	`, id).Scan(&profile.Id, &profile.Username, &profile.Email, &profile.FullName, &bio, &profile.CountriesVisited, &createdAt, &updatedAt)
 
 	if err != nil {
-		repo.Logger.Error("Error Get user profile", slog.String("error", err.Error()))
+		return nil, err
 	}
 
 	if !bio.Valid {
@@ -211,7 +201,7 @@ func (repo *UserRepo) UpdateUserProfile(req *pb.UpdateProfileRequest) (*pb.Updat
 	`, req.FullName, req.Bio, req.CountriesVisited, req.Id).Scan(&profile.Id, &profile.Username, &profile.Email, &profile.FullName, &profile.Bio, &profile.CountriesVisited, &updatedAt)
 
 	if err != nil {
-		repo.Logger.Error("Error Get user profile", slog.String("error", err.Error()))
+		return nil, err
 	}
 
 	profile.UpdatedAt = updatedAt.Format("2006-01-02 15:04:05")
@@ -236,7 +226,6 @@ func (repo *UserRepo) GetUsers(req *pb.ListUsersRequest) (*pb.ListUsersResponse,
 		OFFSET $2
 	`, req.Limit, offset)
 	if err != nil {
-		repo.Logger.Error("error executing query", slog.String("error", err.Error()))
 		return nil, err
 	}
 	defer rows.Close()
@@ -245,7 +234,6 @@ func (repo *UserRepo) GetUsers(req *pb.ListUsersRequest) (*pb.ListUsersResponse,
 	for rows.Next() {
 		var user pb.User
 		if err := rows.Scan(&user.Id, &user.Username, &user.FullName, &user.CountriesVisited); err != nil {
-			repo.Logger.Error("error scanning row", slog.String("error", err.Error()))
 			return nil, err
 		}
 		users = append(users, &user)
@@ -262,7 +250,6 @@ func (repo *UserRepo) GetUsers(req *pb.ListUsersRequest) (*pb.ListUsersResponse,
 	`).Scan(&total)
 
 	if err != nil {
-		repo.Logger.Error("error counting users", slog.String("error", err.Error()))
 		return nil, err
 	}
 
@@ -287,23 +274,18 @@ func (repo *UserRepo) DeleteUser(id string) (*pb.DeleteUserResponse, error) {
     `, time.Now().Unix(), id)
 
 	if err != nil {
-		repo.Logger.Error("Error in user deletion", slog.String("error", err.Error()))
 		return nil, err
 	}
 
 	rowsAffected, err := res.RowsAffected()
 	if err != nil {
-		repo.Logger.Error("Error getting rows affected", slog.String("error", err.Error()))
 		return nil, err
 	}
 
 	if rowsAffected == 0 {
 		err := sql.ErrNoRows
-		repo.Logger.Error("No user found to delete", slog.String("id", id))
 		return nil, err
 	}
-
-	repo.Logger.Info("User successfully deleted", slog.String("id", id))
 
 	return &pb.DeleteUserResponse{
 		Message: "User successfully deleted",
@@ -329,7 +311,6 @@ func (repo *UserRepo) FollowingUser(req *pb.FollowUserRequest) (*pb.FollowUserRe
 	`, req.FollowerId, req.FollowingId).Scan(&follower.FollowerId, &follower.FollowingId, &follower.FollowingAt)
 
 	if err != nil {
-		repo.Logger.Error("Error in following user", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return &follower, nil
@@ -354,16 +335,14 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 	`, req.UserId, offset, req.Limit)
 
 	if err != nil {
-		repo.Logger.Error("Error in get followers", slog.String("error", err.Error()))
 		return nil, err
 	}
 
 	for rows.Next() {
 		var follower pb.Follower
-		
+
 		err = rows.Scan(&follower.Id, &follower.Username, &follower.FullName)
 		if err != nil {
-			repo.Logger.Error("Error in scan follower", slog.String("error", err.Error()))
 			return nil, err
 		}
 
@@ -386,14 +365,13 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 			f.following_id = $1 and u.deleted_at = 0
 	`).Scan(&total)
 	if err != nil {
-		repo.Logger.Error("Error in get followers count", slog.String("error", err.Error()))
 		return nil, err
 	}
 
 	return &pb.ListFollowersResponse{
 		Followers: followers,
-		Total: total,
-		Page: req.Page,
-		Limit: req.Limit,
+		Total:     total,
+		Page:      req.Page,
+		Limit:     req.Limit,
 	}, nil
 }
