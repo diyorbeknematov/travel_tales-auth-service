@@ -292,6 +292,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.UpdatePassword"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Refresh token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {

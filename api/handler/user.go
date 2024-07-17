@@ -4,6 +4,7 @@ import (
 	"auth-service/api/handler/token"
 	"auth-service/models"
 	"auth-service/pkg"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
@@ -118,6 +119,7 @@ func (h *Handler) LoginHandler(ctx *gin.Context) {
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}
+	
 	ctx.JSON(http.StatusOK, newToken)
 }
 
@@ -222,6 +224,7 @@ func (h *Handler) ResetPasswordHandler(ctx *gin.Context) {
 // @Security ApiKeyAuth
 // @Produce json
 // @Param UpdatePassword body models.UpdatePassword true "Reset Password"
+// @Param Authorization header string true "Refresh token"
 // @Success 200 {object} models.Success
 // @Failure 400 {object} models.Errors
 // @Failure 500 {object} models.Errors
@@ -229,10 +232,11 @@ func (h *Handler) ResetPasswordHandler(ctx *gin.Context) {
 func (h *Handler) UpdatePasswordHandler(ctx *gin.Context) {
 	var pass models.UpdatePassword
 	accesstoken := ctx.Query("token")
+	fmt.Println(accesstoken)
 	claims, err := token.ExtractClaims(accesstoken)
 
 	if err != nil {
-		h.Logger.Error("Error tokenni tekshirishda", slog.String("error", err.Error()))
+		h.Logger.Error("Error tokenni tekshirishda xatolik", slog.String("error", err.Error()))
 		ctx.JSON(http.StatusBadRequest, models.Errors{
 			Message: "tokenni tekshirishda xatolik",
 		})

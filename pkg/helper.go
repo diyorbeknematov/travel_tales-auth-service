@@ -3,8 +3,8 @@ package pkg
 import "net/smtp"
 
 func SendEmail(to string, subject string, body string) error {
-	from := "nematovdiyorbek10@gmail.com"
-	password := "software_engineer"
+	from := "nurmuhammadmel@gmail.com"
+	password := "qxxq bjej yprc plkz"
 
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
@@ -24,5 +24,5 @@ func SendEmail(to string, subject string, body string) error {
 
 // Create a reset link
 func CreateResetLink(baseURL string, token string) string {
-	return baseURL + "new-password?token=" + token
+	return "localhost:8081/swagger/index.html#" + baseURL + "/new-password?token=" + token + ""
 }

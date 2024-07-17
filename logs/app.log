@@ -88,3 +88,73 @@
 {"time":"2024-07-16T02:30:05.920760885+05:00","level":"INFO","msg":"Starting the server ..."}
 {"time":"2024-07-16T02:30:05.928044703+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
 {"time":"2024-07-16T02:30:05.928192366+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T13:44:51.321262685+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T13:44:51.344722205+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T13:44:51.345120405+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T13:46:00.12414016+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T13:46:31.726547282+05:00","level":"ERROR","msg":"Error userlar ro'yxatini olishda","error":"pq: syntax error at or near \"deleted_at\""}
+{"time":"2024-07-16T13:48:42.14697417+05:00","level":"ERROR","msg":"Error userlar ro'yxatini olishda","error":"pq: syntax error at or near \"deleted_at\""}
+{"time":"2024-07-16T13:49:24.719744474+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T13:49:24.731477949+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T13:49:24.732042451+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T13:49:27.10371005+05:00","level":"ERROR","msg":"Error userlar ro'yxatini olishda","error":"pq: syntax error at or near \"deleted_at\""}
+{"time":"2024-07-16T13:50:05.191027731+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T13:50:05.204631928+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T13:50:05.204945973+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T13:50:07.293295328+05:00","level":"ERROR","msg":"Error userlar ro'yxatini olishda","error":"pq: syntax error at or near \"deleted_at\""}
+{"time":"2024-07-16T13:50:46.910838488+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T13:50:46.922716689+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T13:50:46.923112031+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T13:51:29.129950243+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T13:51:29.141534564+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T13:51:29.141778002+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T14:08:20.995878539+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T14:09:57.517464839+05:00","level":"ERROR","msg":"Error userni yangilashda","error":"pq: got 4 parameters but the statement requires 3"}
+{"time":"2024-07-16T14:11:26.942254958+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T14:11:26.960369401+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T14:11:26.960921354+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T14:49:02.751338316+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T15:11:04.752992157+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T15:11:04.761008938+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T15:11:04.761201944+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T15:31:20.431934113+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T16:03:12.416895696+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-16T16:16:26.340484107+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-16T16:22:45.269435674+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-16T16:24:29.765150253+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-16T16:26:59.864010529+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-16T16:38:31.81010953+05:00","level":"INFO","msg":"Handling RefreshToken request"}
+{"time":"2024-07-16T16:50:59.38417534+05:00","level":"ERROR","msg":"Error in send email reset password link","error":"535 5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 2adb3069b0e04-52ed2532099sm1133882e87.191 - gsmtp"}
+{"time":"2024-07-16T16:53:28.537599286+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T16:53:28.549550673+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T16:53:28.549882909+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:01:05.204445079+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:01:05.219107071+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:01:05.219518501+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:06:04.883230587+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:06:04.895486957+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:06:04.895683047+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:09:46.171847555+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:09:46.190110168+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:09:46.190581113+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:13:33.446860054+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:13:33.457943367+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:13:33.458301085+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:15:52.313122996+05:00","level":"ERROR","msg":"Error tokenni tekshirishda","error":"token contains an invalid number of segments"}
+{"time":"2024-07-16T17:17:02.972908479+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:17:02.984259797+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:17:02.98475877+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:17:31.704408515+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-16T17:17:31.721501711+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-16T17:17:31.722129242+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-16T17:17:38.817696632+05:00","level":"ERROR","msg":"Error tokenni tekshirishda xatolik","error":"token contains an invalid number of segments"}
+{"time":"2024-07-17T12:44:06.523022775+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T12:44:06.529497444+05:00","level":"ERROR","msg":"Error connection th postgres","error":"pq: password authentication failed for user \"postgres\""}
+{"time":"2024-07-17T12:44:51.328912113+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T12:44:51.344144442+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T12:44:51.344276252+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T12:45:19.026502728+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T12:45:19.033699009+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T12:45:19.033878456+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T12:45:52.346326432+05:00","level":"ERROR","msg":"Error getting user by email","error":"sql: no rows in result set"}
+{"time":"2024-07-17T12:46:16.624548323+05:00","level":"INFO","msg":"user login successfully"}

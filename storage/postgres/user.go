@@ -186,9 +186,10 @@ func (repo *UserRepo) UpdateUserProfile(req *pb.UpdateProfileRequest) (*pb.Updat
 		SET 
 			full_name = $1,
 			bio = $2,
-			countries_visited = $3
+			countries_visited = $3,
+			updated_at = CURRENT_TIMESTAMP
 		WHERE
-			id = $1 AND deleted_at = 0
+			id = $4 AND deleted_at = 0
 		RETURNING
 			id,
 			username,
@@ -220,6 +221,8 @@ func (repo *UserRepo) GetUsers(req *pb.ListUsersRequest) (*pb.ListUsersResponse,
 			countries_visited
         FROM 
 			users
+		WHERE 
+			deleted_at = 0
         ORDER BY 
 			username
         LIMIT $1 
@@ -245,7 +248,7 @@ func (repo *UserRepo) GetUsers(req *pb.ListUsersRequest) (*pb.ListUsersResponse,
 			COUNT(*) 
 		FROM 
 			users
-		WHEEW 
+		WHERE
 			deleted_at = 0
 	`).Scan(&total)
 
@@ -321,7 +324,7 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 	offset := (req.Page - 1) * req.Limit
 	rows, err := repo.DB.Query(`
 		SELECT
-			id,
+			u.id,
 			username,
 			full_name
 		FROM
@@ -363,7 +366,7 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 			followers f ON u.id = f.follower_id
 		WHERE
 			f.following_id = $1 and u.deleted_at = 0
-	`).Scan(&total)
+	`, req.UserId).Scan(&total)
 	if err != nil {
 		return nil, err
 	}
@@ -374,4 +377,21 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 		Page:      req.Page,
 		Limit:     req.Limit,
 	}, nil
+}
+
+func (repo *UserRepo) GetUserActivity(id string) (*pb.GetUserActivityResponse, error) {
+	var resp pb.GetUserActivityResponse
+
+	err := repo.DB.QueryRow(`
+		SELECT
+			id,
+			countries_visited,
+			updated_at
+		FROM
+			users
+		WHERE
+			deleted_at = 0 and id = $1
+	`, id).Scan(&resp.UserId, &resp.CountriesVisited, &resp.LastActive)
+
+	return &resp, err
 }

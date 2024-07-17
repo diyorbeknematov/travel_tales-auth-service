@@ -240,6 +240,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.UpdatePassword'
+      - description: Refresh token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
