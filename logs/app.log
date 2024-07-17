@@ -158,3 +158,55 @@
 {"time":"2024-07-17T12:45:19.033878456+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
 {"time":"2024-07-17T12:45:52.346326432+05:00","level":"ERROR","msg":"Error getting user by email","error":"sql: no rows in result set"}
 {"time":"2024-07-17T12:46:16.624548323+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T15:27:03.251179881+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T15:27:03.285968368+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T15:27:03.286516522+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T15:28:51.872071544+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T15:48:37.125877679+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T16:05:54.40149691+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T16:15:26.542143208+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T16:30:03.860676049+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T16:30:03.878670761+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T16:30:03.87932683+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T16:30:58.729692384+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T16:54:12.84712238+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T16:54:12.865058451+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T16:54:12.865570529+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T16:57:35.094450275+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T16:57:35.112141695+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T16:57:35.112708185+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T16:58:06.077233671+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T16:58:06.095190505+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T16:58:06.095868163+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T16:59:08.195523189+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T16:59:08.213550725+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T16:59:08.214157693+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T17:01:06.595306453+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:01:06.61305902+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:01:06.613656481+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T17:01:28.564929567+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T17:03:25.175503338+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:03:25.192692245+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:03:25.193165573+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T17:04:11.644822557+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:04:11.662233009+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:04:11.662772658+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T17:04:50.859240813+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:04:50.876131114+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:04:50.876519882+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T17:08:13.691028375+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:08:13.708932037+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:08:13.709441612+05:00","level":"ERROR","msg":"Error create to new listener","error":"listen tcp :50050: bind: address already in use"}
+{"time":"2024-07-17T17:08:23.344840894+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-17T17:08:23.362655636+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-17T17:08:23.363276715+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-17T18:36:27.685398077+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T18:48:06.351113048+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T18:49:14.981160015+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T18:52:02.469359179+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T18:58:50.269272133+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T19:02:03.041694801+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T19:07:21.239654408+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-17T19:14:30.095017522+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T19:20:35.794552148+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
+{"time":"2024-07-17T19:38:20.723155162+05:00","level":"INFO","msg":"Handling RefreshToken request"}

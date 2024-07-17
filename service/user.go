@@ -1,7 +1,6 @@
 package service
 
 import (
-	"auth-service/generated/stories"
 	pb "auth-service/generated/user"
 	"auth-service/storage/postgres"
 	"auth-service/storage/redis"
@@ -14,7 +13,6 @@ type UserService struct {
 	UserRepo    *postgres.UserRepo
 	Logger      *slog.Logger
 	RedisClient *redis.RedisClient
-	StoriesClient stories.TravelStoriesServiceClient
 }
 
 func (s *UserService) UserInfo(ctx context.Context, in *pb.UserInfoRequest) (*pb.UserInfoResponse, error) {
@@ -84,12 +82,12 @@ func (s *UserService) ListFollowers(ctx context.Context, in *pb.ListFollowersReq
 	return resp, nil
 }
 
-func(s *UserService) GetUserActivity(ctx context.Context, in *pb.GetUserActivityRequest) (*pb.GetUserActivityResponse, error) {
+func (s *UserService) GetUserActivity(ctx context.Context, in *pb.GetUserActivityRequest) (*pb.GetUserActivityResponse, error) {
 	resp, err := s.UserRepo.GetUserActivity(in.Id)
 	if err != nil {
 		s.Logger.Error("Error in get user activity", slog.String("error", err.Error()))
 		return nil, err
 	}
-	
-	return resp,  nil
+
+	return resp, nil
 }

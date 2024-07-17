@@ -371,12 +371,15 @@ func (repo *UserRepo) GetFollowers(req *pb.ListFollowersRequest) (*pb.ListFollow
 		return nil, err
 	}
 
-	return &pb.ListFollowersResponse{
+	
+	resp := &pb.ListFollowersResponse{
 		Followers: followers,
 		Total:     total,
 		Page:      req.Page,
 		Limit:     req.Limit,
-	}, nil
+	}
+
+	return resp, nil
 }
 
 func (repo *UserRepo) GetUserActivity(id string) (*pb.GetUserActivityResponse, error) {
