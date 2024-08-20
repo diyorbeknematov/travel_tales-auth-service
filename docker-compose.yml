@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  migrate:
+    image: migrate/migrate
+    networks:
+      - travel
+    depends_on:
+      - postgres
+    volumes:
+      - ./databases/migrations:/migrations
+    command: ["-path", "/migrations", "-database", "postgres://postgres:03212164@postgres3:5432/travel_tales_auth_service?sslmode=disable", "up"]
+  
+  postgres:
+    image: postgres:16.3
+    container_name: postgres3
+    networks:
+      - travel
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=03212164
+      - POSTGRES_DB=travel_tales_auth_service
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+  
+  redis:
+    image: redis:latest
+    container_name: redis3
+    networks:
+      - travel
+    ports:
+    - 6380:6379
+  
+  travel-auth:
+    container_name: travel-auth
+    build: .
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - 8081:8081
+    networks:
+      - travel
+
+networks:
+  travel:
+    name: travel
+    external: true
+
+volumes:
+  postgres_data:

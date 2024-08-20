@@ -210,3 +210,12 @@
 {"time":"2024-07-17T19:14:30.095017522+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
 {"time":"2024-07-17T19:20:35.794552148+05:00","level":"ERROR","msg":"Userni ma'lumotlarini olishda xatolik","error":"sql: no rows in result set"}
 {"time":"2024-07-17T19:38:20.723155162+05:00","level":"INFO","msg":"Handling RefreshToken request"}
+{"time":"2024-07-18T14:19:11.883716011+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-07-18T14:19:11.893167982+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-07-18T14:19:11.893319025+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-07-18T14:21:26.023443655+05:00","level":"INFO","msg":"user login successfully"}
+{"time":"2024-07-18T14:26:14.239143584+05:00","level":"INFO","msg":"Handling RefreshToken request"}
+{"time":"2024-08-20T10:14:15.284482282+05:00","level":"INFO","msg":"Starting the server ..."}
+{"time":"2024-08-20T10:14:15.316793098+05:00","level":"INFO","msg":"server is running","PORT":":8081"}
+{"time":"2024-08-20T10:14:15.317075817+05:00","level":"INFO","msg":"server is running ","PORT":":50050"}
+{"time":"2024-08-20T10:15:06.05454031+05:00","level":"INFO","msg":"user login successfully"}
